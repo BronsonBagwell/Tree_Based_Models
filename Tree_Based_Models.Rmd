@@ -70,12 +70,10 @@ Accuracy
     #Misclassification (Error Rate)
 test_ercltree <- 1-sum(diag(conf_clatree))/sum(conf_clatree )  
 test_ercltree
-    #Sensitivity
-sensitivity <- conf_clatree[1, 1] / sum(conf_clatree[1, ])
-sensitivity
-    #Specificty
-specificity <- conf_clatree[2, 2] / sum(conf_clatree[2, ])
-specificity
+    #Sensitivity and Specificity
+cm_clatree <- caret::confusionMatrix(pred_clatree, factor(tsdata$Admit), positive = "1")
+cm_clatree$byClass["Sensitivity"]
+cm_clatree$byClass["Specificity"]
 ```
 
 # 4. Fit random forests for classification to the training data and answer the following questions.
@@ -112,19 +110,17 @@ Accuracy
     #Misclassification (Error Rate)
 test_erclarf <- 1-sum(diag(conf_clarf ))/sum(conf_clarf )
 test_erclarf
-    #Sensitivity
-sensitivity <- conf_clarf[1, 1] / sum(conf_clarf[1, ])
-sensitivity
-    #Specificty
-specificity <- conf_clarf[2, 2] / sum(conf_clarf[2, ])
-specificity
+    #Sensitivity and Specificity
+cm_clarf <- caret::confusionMatrix(pred_clarf, factor(tsdata$Admit), positive = "1")
+cm_clarf$byClass["Sensitivity"]
+cm_clarf$byClass["Specificity"]
 
 ```
 
 # 5. Fit Bagging for classification to the training data and answer the following questions
 
 ```{r}
-clabag <- randomForest(Admit~.,trdata,mtry=12,importance=TRUE)  
+clabag <- randomForest(Admit ~ ., trdata, mtry = ncol(trdata) - 1, importance = TRUE)  # bagging = use all predictors
 print(clabag)
 
     #Plot the Bagging model. Describe the plot. 
@@ -156,12 +152,10 @@ sum(diag(conf_clabag))/sum(conf_clabag)
     #Misclassification (Error Rate)
 test_erclabag <- 1-sum(diag(conf_clabag))/sum(conf_clabag)  # test error rate
 test_erclabag
-    #Sensitivity
-sensitivity <- conf_clabag[1, 1] / sum(conf_clabag[1, ])
-sensitivity
-    #Specificty
-specificity <- conf_clabag[2, 2] / sum(conf_clabag[2, ])
-specificity
+    #Sensitivity and Specificity
+cm_clabag <- caret::confusionMatrix(pred_clabag, factor(tsdata$Admit), positive = "1")
+cm_clabag$byClass["Sensitivity"]
+cm_clabag$byClass["Specificity"]
 
 ```
 
