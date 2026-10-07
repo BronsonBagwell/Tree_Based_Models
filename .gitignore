@@ -1,1 +1,3 @@
-/.claude/
+# local tool and editor folders
+/.*/
+!/.github/

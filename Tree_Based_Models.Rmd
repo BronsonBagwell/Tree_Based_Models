@@ -82,7 +82,7 @@ clarf <- randomForest(Admit~.,trdata,importance=TRUE)
 
     #Plot the random forest. Describe the plot.
 plot(clarf,main="Random Forest Error rate vs ntrees" )  
-legend(450,0.6,colnames(clarf$err.rate),col=1:3,cex=0.8,fill=1:3)
+legend("right",colnames(clarf$err.rate),col=1:3,cex=0.8,fill=1:3)
 
     #Use varImpPlot() function to determine which variables are most important. List the top 3 important features.
 varImpPlot(clarf,main="Random Forest-Variable Importance" )
@@ -91,6 +91,8 @@ importance(clarf)
 Describe the plot
   
   This is a plot describing Error vs ntrees. Out of bag Error is relativly Steady. As ntrees increases Non-Admit error rate increases and then levels out at around ntrees=100. As ntrees increases Admit error rate decreases and then levels out at around ntrees=180. 
+
+Top 3 important features by MeanDecreaseAccuracy
 
 1. CGPA
 
@@ -135,11 +137,15 @@ Describe the plot
   
   This is a plot describing Error vs ntrees. Out of bag Error is relativly Steady with a slight decrease as ntrees increases. As ntrees increases Non-Admit error rate slightly increases and then levels. As ntrees increases Admit error rate is decreases then levels out at around ntrees=90
 
+Top 3 important features by MeanDecreaseAccuracy
+
 1. CGPA
 
 2. GRE
 
 3. LOR
+
+By MeanDecreaseGini the third is SOP instead of LOR (the Neural_Network project uses the MeanDecreaseGini ranking).
 
 ```{r}
     #Predict the response on the test data, and produce a confusion matrix comparing the test labels to the predicted test labels. What is the test overall accuracy and misclassification (error rate), sensitivity and specificity?
@@ -159,11 +165,11 @@ cm_clabag$byClass["Specificity"]
 
 ```
 
-# 6. What was the misclassification error you found for the test data in Homework 3?
+# 6. What was the misclassification error you found for the test data in Homework 3 (the Classification_Model project)?
 
-0.125
+0.1125
 
-# 7. Compare the misclassification error from the decision tree, Random Forest, Random Forest-Bagging and the logistic model from homework 3. Which classification method is better?
+# 7. Compare the misclassification error from the decision tree, Random Forest, Random Forest-Bagging and the logistic model from homework 3 (the Classification_Model project). Which classification method is better?
 
 Logistic Model is at .1125 with the lowest Error, Making it the better option.
 
